@@ -62,8 +62,8 @@ public class ReaderProcessorWriterConfiguration {
     }
 
     @Bean
-    public Job job(Step step) {
-        return jobBuilderFactory.get("job")
+    public Job sampleReaderProcessorWriterJob(Step step) {
+        return jobBuilderFactory.get("sampleReaderProcessorWriterJob")
                 .start(step)
                 .build();
     }
