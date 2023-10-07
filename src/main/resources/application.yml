@@ -6,3 +6,13 @@ spring:
     job.names: ${job.name:NONE}
     jdbc:
       initialize-schema: always
+
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      username: graal
+      password: graal
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://localhost:5432/graal
