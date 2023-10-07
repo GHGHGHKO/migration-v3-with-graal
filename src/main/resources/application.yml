@@ -5,7 +5,7 @@ spring:
   batch:
     job.names: ${job.name:NONE}
     jdbc:
-      initialize-schema: always
+      initialize-schema: always # create metadata tables
 
   datasource:
     hikari:
