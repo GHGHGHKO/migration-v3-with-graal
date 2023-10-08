@@ -1,2 +1,2 @@
 # migration-v3-with-graal
-Just migrating from Spring Boot 2 to 3 with GraalVM
+Migrating from Spring Boot(batch) 2 to 3 with GraalVM
