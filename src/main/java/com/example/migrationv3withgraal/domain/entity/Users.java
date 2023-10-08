@@ -1,4 +1,4 @@
-package com.example.migrationv3withgraal.entity;
+package com.example.migrationv3withgraal.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
