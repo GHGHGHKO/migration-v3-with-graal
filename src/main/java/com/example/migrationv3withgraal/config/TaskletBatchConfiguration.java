@@ -39,7 +39,7 @@ public class TaskletBatchConfiguration {
 
     @Bean
     public Job saveUserTaskletJob() {
-        return jobBuilderFactory.get("saveUserletJob")
+        return jobBuilderFactory.get("saveUserTaskletJob")
                 .start(saveUserStep())
                 .build();
     }
