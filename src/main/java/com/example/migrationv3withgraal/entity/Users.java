@@ -21,6 +21,7 @@ import java.util.UUID;
 public class Users {
 
     @Id
+    @Builder.Default
     @Column(name = "id")
     private UUID id = UUID.randomUUID();
 
