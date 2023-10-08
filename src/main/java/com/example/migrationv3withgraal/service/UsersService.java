@@ -27,7 +27,8 @@ public class UsersService {
     }
 
     public void updateQuitUser() {
-        Users users = usersRepository.findByUserNickname(USER_PREFIX_NICKNAME + "1");
+        Users users = usersRepository.findByUserNickname(USER_PREFIX_NICKNAME + "1")
+                .orElseThrow(IllegalArgumentException::new);
         users.updateUserNickname("Pepe");
         usersRepository.save(users);
     }
