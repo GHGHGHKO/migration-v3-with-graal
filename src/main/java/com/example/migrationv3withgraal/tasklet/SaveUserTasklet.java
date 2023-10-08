@@ -17,6 +17,7 @@ public class SaveUserTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         usersService.saveUser();
+        usersService.updateQuitUser();
         return RepeatStatus.FINISHED;
     }
 }

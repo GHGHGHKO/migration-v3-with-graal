@@ -33,4 +33,8 @@ public class Users {
 
     @Column(name = "is_quit")
     private boolean isQuit;
+
+    public void updateUserNickname(String userNickname) {
+        this.userNickname = userNickname;
+    }
 }
