@@ -1,6 +1,7 @@
 package com.example.migrationv3withgraal.config;
 
 import com.example.migrationv3withgraal.tasklet.SampleTasklet;
+import com.example.migrationv3withgraal.tasklet.SaveUserTasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -21,6 +22,8 @@ public class TaskletBatchConfiguration {
 
     private final SampleTasklet sampleTasklet;
 
+    private final SaveUserTasklet saveUserTasklet;
+
     @Bean
     public Job sampleTaskletJob() {
         return jobBuilderFactory.get("sampleTaskletJob")
@@ -31,6 +34,19 @@ public class TaskletBatchConfiguration {
     private Step sampleStep() {
         return stepBuilderFactory.get("sampleStep1")
                 .tasklet(sampleTasklet)
+                .build();
+    }
+
+    @Bean
+    public Job saveUserTaskletJob() {
+        return jobBuilderFactory.get("saveUserletJob")
+                .start(saveUserStep())
+                .build();
+    }
+
+    private Step saveUserStep() {
+        return stepBuilderFactory.get("saveUserStep1")
+                .tasklet(saveUserTasklet)
                 .build();
     }
 }
