@@ -6,47 +6,47 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class TaskletBatchConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-
-    private final StepBuilderFactory stepBuilderFactory;
-
     private final SampleTasklet sampleTasklet;
 
     private final SaveUserTasklet saveUserTasklet;
 
     @Bean
-    public Job sampleTaskletJob() {
-        return jobBuilderFactory.get("sampleTaskletJob")
-                .start(sampleStep())
-                .build();
-    }
-
-    private Step sampleStep() {
-        return stepBuilderFactory.get("sampleStep1")
-                .tasklet(sampleTasklet)
+    public Job sampleTaskletJob(JobRepository jobRepository, Step sampleStep) {
+        return new JobBuilder("sampleTaskletJob", jobRepository)
+                .start(sampleStep)
                 .build();
     }
 
     @Bean
-    public Job saveUserTaskletJob() {
-        return jobBuilderFactory.get("saveUserTaskletJob")
-                .start(saveUserStep())
+    public Step sampleStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("sampleStep1", jobRepository)
+                .tasklet(sampleTasklet, transactionManager)
                 .build();
     }
 
-    private Step saveUserStep() {
-        return stepBuilderFactory.get("saveUserStep1")
-                .tasklet(saveUserTasklet)
+    @Bean
+    public Job saveUserTaskletJob(JobRepository jobRepository, Step saveUserStep) {
+        return new JobBuilder("saveUserTaskletJob", jobRepository)
+                .start(saveUserStep)
+                .build();
+    }
+
+    @Bean
+    public Step saveUserStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("saveUserStep1", jobRepository)
+                .tasklet(saveUserTasklet, transactionManager)
                 .build();
     }
 }

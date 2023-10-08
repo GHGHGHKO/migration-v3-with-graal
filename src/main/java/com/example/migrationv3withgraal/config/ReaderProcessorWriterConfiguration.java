@@ -4,14 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,10 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Configuration
 public class ReaderProcessorWriterConfiguration {
-
-    private final JobBuilderFactory jobBuilderFactory;
-
-    private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
     public ItemReader<String> itemReader() {
@@ -49,9 +47,13 @@ public class ReaderProcessorWriterConfiguration {
     }
 
     @Bean
-    public Step step(ItemReader<String> itemReader, ItemProcessor<String, String> itemProcessor, ItemWriter<String> itemWriter) {
-        return stepBuilderFactory.get("step")
-                .<String, String>chunk(2)
+    public Step step(JobRepository jobRepository,
+                     PlatformTransactionManager transactionManager,
+                     ItemReader<String> itemReader,
+                     ItemProcessor<String, String> itemProcessor,
+                     ItemWriter<String> itemWriter) {
+        return new StepBuilder("step", jobRepository)
+                .<String, String>chunk(2, transactionManager)
                 .reader(itemReader)
                 .processor(itemProcessor)
                 .writer(itemWriter)
@@ -62,8 +64,8 @@ public class ReaderProcessorWriterConfiguration {
     }
 
     @Bean
-    public Job sampleReaderProcessorWriterJob(Step step) {
-        return jobBuilderFactory.get("sampleReaderProcessorWriterJob")
+    public Job sampleReaderProcessorWriterJob(JobRepository jobRepository, Step step) {
+        return new JobBuilder("sampleReaderProcessorWriterJob", jobRepository)
                 .start(step)
                 .build();
     }
