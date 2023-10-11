@@ -3,6 +3,6 @@ spring:
     web-application-type: NONE
 
   batch:
-    job.names: ${job.name:NONE}
+    job.name: ${job.name:NONE}
     jdbc:
       initialize-schema: always # create metadata tables
