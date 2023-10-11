@@ -14,6 +14,9 @@ public class SampleTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
         log.info("Hello Tasklet !");
+        log.info("parameter is {}", contribution.getStepExecution().getJobExecution()
+                .getJobParameters()
+                .getString("name"));
         return RepeatStatus.FINISHED;
     }
 }
