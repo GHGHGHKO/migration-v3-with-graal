@@ -25,14 +25,13 @@ https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Gu
 
 # Without GraalVM
 
+### Build time
+![스크린샷 2023-10-16 190415](https://github.com/GHGHGHKO/migration-v3-with-graal/assets/26823834/cb497b3f-90b5-4739-8f72-1c71c8ede12f)
+
 ### command
 ```shell
 $ docker run -p 8080:8080 -e SPRING_BATCH_JOB_NAME=sampleTaskletJob migration-v3-with-graal:0.0.1-SNAPSHOT
 ```
-
-### Build time
-![스크린샷 2023-10-16 190415](https://github.com/GHGHGHKO/migration-v3-with-graal/assets/26823834/cb497b3f-90b5-4739-8f72-1c71c8ede12f)
-
 
 ### Started MigrationV3WithGraalApplication in 2.474 seconds (process running for 2.888)
 ```text
@@ -48,14 +47,13 @@ $ docker run -p 8080:8080 -e SPRING_BATCH_JOB_NAME=sampleTaskletJob migration-v3
 
 # With GraalVM
 
+### Build time
+![스크린샷 2023-10-16 190234](https://github.com/GHGHGHKO/migration-v3-with-graal/assets/26823834/daa594db-c839-4403-8809-ecd389417a4c)
+
 ### command
 ```shell
 docker run -p 8080:8080 -e SPRING_BATCH_JOB_NAME=sampleTaskletJob migration-v3-with-graal:0.1.1-SNAPSHOT
 ```
-
-### Build time
-![스크린샷 2023-10-16 190234](https://github.com/GHGHGHKO/migration-v3-with-graal/assets/26823834/daa594db-c839-4403-8809-ecd389417a4c)
-
 
 ### Started MigrationV3WithGraalApplication in 0.114 seconds (process running for 0.121)
 ```text
