@@ -47,6 +47,11 @@ $ docker run -p 8080:8080 -e SPRING_BATCH_JOB_NAME=sampleTaskletJob migration-v3
 
 # With GraalVM
 
+### Build command
+```shell
+./gradlew bootBuildImage --imageName=migration-v3-with-graal:0.3.1-SNAPSHOT
+```
+
 ### Build time
 ![스크린샷 2023-10-16 190234](https://github.com/GHGHGHKO/migration-v3-with-graal/assets/26823834/daa594db-c839-4403-8809-ecd389417a4c)
 
